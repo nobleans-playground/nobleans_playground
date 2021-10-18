@@ -22,6 +22,7 @@ find_package(ament_cmake REQUIRED)
 ################################################################################
 install(
   DIRECTORY
+    controllers
     launch
     worlds
   DESTINATION share/${PROJECT_NAME}
