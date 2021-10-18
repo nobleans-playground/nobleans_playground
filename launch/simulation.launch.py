@@ -11,7 +11,7 @@ from webots_ros2_driver.webots_launcher import WebotsLauncher
 
 
 def generate_launch_description():
-    simulation_dir = get_package_share_directory('nobleans-playground')
+    simulation_dir = get_package_share_directory('nobleans_playground')
     world = LaunchConfiguration('world')
 
     webots = WebotsLauncher(
