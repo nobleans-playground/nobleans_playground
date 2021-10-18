@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>nobleans-playground</name>
+  <version>0.0.1</version>
+  <description>Holds a playground for webots for all the robleos to play in :)</description>
+
+  <maintainer email="tim.clephas@nobleo.nl">Tim Clephas</maintainer>
+  <license>Apache License 2.0</license>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
