@@ -7691,3 +7691,7 @@ DEF parking Transform {
     }
   ]
 }
+Robot {
+  controller "<extern>"
+  supervisor TRUE
+}
