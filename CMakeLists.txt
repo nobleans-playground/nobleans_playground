@@ -22,10 +22,15 @@ find_package(ament_cmake REQUIRED)
 ################################################################################
 install(
   DIRECTORY
-    controllers
     launch
     worlds
   DESTINATION share/${PROJECT_NAME}
+)
+
+install(
+  PROGRAMS
+    controllers/spawner/spawner.py
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 ################################################################################
