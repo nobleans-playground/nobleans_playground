@@ -2,30 +2,36 @@
 """spawner controller."""
 
 from controller import Supervisor
+from nobleans_playground.srv import SpawnProto
+
+import rclpy
+from rclpy.node import Node
 
 
-# create the Supervisor instance.
-supervisor = Supervisor()
+class WebotsSpawner(Node):
 
-rootNode = supervisor.getRoot();
-childrenField = rootNode.getField('children')
-childrenField.importMFNodeFromString(-1, 'Robot { children [ Shape { geometry Sphere { radius 100 } } ] }')
+    def __init__(self):
+        super().__init__('webots_spawner')
 
-# get the time step of the current world.
-timestep = int(supervisor.getBasicTimeStep())
+        # create the Supervisor instance.
+        self.supervisor = Supervisor()
 
-# Main loop:
-# - perform simulation steps until Webots is stopping the controller
-while supervisor.step(timestep) != -1:
-    # Read the sensors:
-    # Enter here functions to read sensor data, like:
-    #  val = ds.getValue()
+        self.srv = self.create_service(SpawnProto, 'spawn_proto', self.spawn_proto)
 
-    # Process sensor data here.
+    def spawn_proto(self, request, response):
+        root_node = self.supervisor.getRoot()
+        children_field = root_node.getField('children')
+        children_field.importMFNodeFromString(-1, request.proto)
+        self.get_logger().debug(request.proto)
 
-    # Enter here functions to send actuator commands, like:
-    #  motor.setPosition(10.0)
-    print("Something")
+        response.success = True
+        return response
 
-# Enter here exit cleanup code.
-print("Exit")
+
+if __name__ == '__main__':
+    rclpy.init()
+    webots_spawner = WebotsSpawner()
+    timestep = int(webots_spawner.supervisor.getBasicTimeStep())
+    while webots_spawner.supervisor.step(timestep) != -1:
+        rclpy.spin_once(webots_spawner)
+    rclpy.shutdown()
