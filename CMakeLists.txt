@@ -16,6 +16,14 @@ endif()
 # Find ament packages and libraries for ament and system dependencies
 ################################################################################
 find_package(ament_cmake REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+
+################################################################################
+# Generate interfaces
+################################################################################
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "srv/SpawnProto.srv"
+)
 
 ################################################################################
 # Install
@@ -27,7 +35,15 @@ install(
   DESTINATION share/${PROJECT_NAME}
 )
 
+install(
+  PROGRAMS
+    controllers/spawner/spawner.py
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 ################################################################################
 # Macro for ament package
 ################################################################################
+
+ament_export_dependencies(rosidl_default_runtime)
 ament_package()

@@ -18,6 +18,12 @@ def generate_launch_description():
         world=PathJoinSubstitution([simulation_dir, 'worlds', world])
     )
 
+    supervisor = Node(
+        package='nobleans_playground',
+        executable='spawner.py',
+        output='screen',
+    )
+
     return LaunchDescription([
         DeclareLaunchArgument(
             'world',
@@ -25,6 +31,7 @@ def generate_launch_description():
             description='World file to be launched'
         ),
         webots,
+        supervisor,
         launch.actions.RegisterEventHandler(
             event_handler=launch.event_handlers.OnProcessExit(
                 target_action=webots,
