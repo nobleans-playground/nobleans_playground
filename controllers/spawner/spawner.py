@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """spawner controller."""
 
-from controller import Supervisor
 from nobleans_playground.srv import SpawnProto
+from webots_ros2_driver_webots.controller import Supervisor
 
 import rclpy
 from rclpy.node import Node
